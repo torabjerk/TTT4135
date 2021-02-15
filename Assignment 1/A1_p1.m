@@ -36,22 +36,27 @@ k = data_block_dct./quantization_table+0.5;
 
 %% c) reconstruction
 %Spør om denne!!!
-% dequantizing the values? How? 
-de_quant = k.*quantization_table;
+% dequantizing the values? How? scaling 
+%
+scaling = [0, 255];
+
+k_scaled = rescale(k,0,1055);
+
+k_w = [1055 11 0 0 0 0 0 0;
+    -108 0 0 0 0 0 0 0;
+    42 0 0 0 0 0 0 0;
+    0 0 0 0 0 0 0 0;
+    0 0 0 0 0 0 0 0;
+    0 0 0 0 0 0 0 0;
+    0 0 0 0 0 0 0 0;
+    0 0 0 0 0 0 0 0];
+
+
+de_quant = k_w.*quantization_table;
 
 reconstructed_block = idct2(de_quant);
 
 psnr_reconstructed_block = "some other code here";
-
-%% Task 2 - Prediction
-% Skal lage en "optimal linear predictor" for x(n)
-% $$R_x(0) = \sigma_x, R_x(1) = a, R_x(k) = 0 for k>1$$
-% 
-
-
-%Second order predictor:
-% $$m(x) = a*x^2 + b*x +c$$
-
 
 
 
