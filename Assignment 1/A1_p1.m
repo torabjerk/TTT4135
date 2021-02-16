@@ -23,63 +23,33 @@ data_block_dct = dct2(data_block); % Transform of 8x8 block to dct
 
 %% b) transform coefficients
 
-k = data_block_dct./quantization_table+0.5;
+q_img = floor(data_block./quantization_table+0.5);
 
-% What do we gain by encoding/quantizing the image in the transform domain 
-% rather than encoding/quantizing the original image pixels directly?
-
-% Can essentially use one value for 8 blocks (the one in the upper left corner)
-% The transformed blockgives us the mean of all the values in the block
-% (upper left corner) and the variations in the block (the rest of the
-% values) 
-
+k = floor(data_block_dct./quantization_table+0.5);
 
 %% c) reconstruction
-%Spør om denne!!!
-% dequantizing the values? How? scaling 
-%
-scaling = [0, 255];
 
-k_scaled = rescale(k,0,1055);
+de_quant_img = q_img.*quantization_table - 0.5;
 
-k_w = [1055 11 0 0 0 0 0 0;
-    -108 0 0 0 0 0 0 0;
-    42 0 0 0 0 0 0 0;
-    0 0 0 0 0 0 0 0;
-    0 0 0 0 0 0 0 0;
-    0 0 0 0 0 0 0 0;
-    0 0 0 0 0 0 0 0;
-    0 0 0 0 0 0 0 0];
+de_quant_DCT = k.*quantization_table - 0.5;
+
+reconstructed_block = idct2(de_quant_DCT);
 
 
-de_quant = k_w.*quantization_table;
+psnr_img_q = psnr(de_quant_img, data_block, 255);
+psnr_dct_transform = psnr(reconstructed_block, data_block, 255);
 
-reconstructed_block = idct2(de_quant);
-
-psnr_reconstructed_block = "some other code here";
-
-
-
-%% Ekstra kode
-
-% J = imresize(data_block, 100);
-% 
-% figure(1)
-% % set(4, "Position",[500,500,8,8])
-% % set(gca, "Position", [0,0,1,1])
-% imshow(J, [])
-% title("8x8 block")
-
-
-% Koden under funker på samme måte som linjen over hihi
-% K = zeros(8,8);
-% 
-% for i=1:8
-%     for j=1:8
-%         val = data_block_dct(i,j)/quantization_table(i,j) + 0.5;
-%         K(i,j) = val;
-%     end
-% end
+%%
+figure(1);
+subplot(3,1,1);
+imshow(mat2gray(de_quant_img));
+title('Reconstructed image using only quantization');
+subplot(3,1,2);
+imshow(mat2gray(data_block));
+title('Original image');
+subplot(3,1,3);
+imshow(mat2gray(reconstructed_block));
+title('Reconstructed using DCT and quantization')
 
 
 
