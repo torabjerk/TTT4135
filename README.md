@@ -6,3 +6,5 @@ Dette er de tre oppgavene vi måtte løse for å gå opp i faget. Hver oppgave t
  * The differences btween JPEG and JPEG2000
 
 ## Assignment 2
+* Encoding H.264
+* 
