@@ -1,0 +1,66 @@
+ -------------------------------------------------------------- 
+  This file contains statistics for the last encoded sequence   
+ -------------------------------------------------------------- 
+ Sequence                     : MOBILE_CIF_ORIGINAL.yuv
+ No.of coded pictures         :   71
+ Freq. for encoded bitstream  :   30
+ BaseLayer Bitrate(kb/s)      : 201.37
+ EnhancedLyaer Bitrate(kb/s)  :  12.47
+ Hadamard transform           : Used
+ Image format                 : 352x288
+ Error robustness             : Off
+ Search range                 : 16
+ No of frame used in P pred   : 3
+ No of frame used in B pred   : 3
+ Entropy coding method        : CAVLC
+ Search range restrictions    : smaller blocks and older reference frames
+ RD-optimized mode decision   : used
+ -------------------|---------------|---------------|
+     Item           |     Intra     |   All frames  |
+ -------------------|---------------|---------------|
+ SNR Y(dB)          | 24.38         | 25.37         |
+ SNR U/V (dB)       | 31.99/31.39   | 31.84/30.96   |
+ Average quant      |    38         | 40.69         |
+
+ -------------------|---------------|
+   Intra            |   Mode used   |
+ -------------------|---------------|
+ Mode 0  intra old  |  1050         |
+ Mode 1+ intra new  |   138         |
+
+ -------------------|---------------|-----------------|
+   Inter            |   Mode used   | MotionInfo bits |
+ -------------------|---------------|-----------------|
+ Mode  0  (copy)    |  4967         |        0.00     |
+ Mode  1  (16x16)   |  4794         |      997.63     |
+ Mode  2  (16x8)    |  1114         |      428.46     |
+ Mode  3  (8x16)    |  1236         |      486.80     |
+ Mode  4  (8x8)     |   895         |      933.60     |
+ Mode  5  intra old |    29         |-----------------|
+ Mode  6+ intr.new  |    33         |
+
+ -------------------|---------------|-----------------|
+   B frame          |   Mode used   | MotionInfo bits |
+ -------------------|---------------|-----------------|
+ Mode  0  (copy)    | 12085         |        0.00     |
+ Mode  1  (16x16)   |  1606         |      200.17     |
+ Mode  2  (16x8)    |    59         |       18.00     |
+ Mode  3  (8x16)    |    47         |       10.63     |
+ Mode  4  (8x8)     |    63         |       27.60     |
+ Mode  5  intra old |     0         |-----------------|
+ Mode  6+ intr.new  |     0         |
+
+ --------------------|----------------|----------------|----------------|
+  Bit usage:         |      Intra     |      Inter     |    B frame     |
+ --------------------|----------------|----------------|----------------|
+ Header              |    1175.00     |      36.91     |       3.11     |
+ Mode                |   37199.00     |     400.94     |      56.74     |
+ Motion Info         |        ./.     |    2846.49     |     256.40     |
+ CBP Y/C             |   20980.00     |      60.69     |     143.37     |
+ Coeffs. Y           |   75053.00     |      39.71     |    4893.00     |
+ Coeffs. C           |   24245.00     |      20.66     |    1185.00     |
+ Delta quant         |    3545.00     |       2.71     |      33.83     |
+ Stuffing Bits       |       0.00     |       0.00     |       0.00     |
+ --------------------|----------------|----------------|----------------|
+ average bits/frame  |  162197.00     |    3408.11     |    6571.46     |
+ --------------------|----------------|----------------|----------------|
