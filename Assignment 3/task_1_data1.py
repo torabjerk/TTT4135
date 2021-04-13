@@ -17,6 +17,7 @@ for i in range(data_len):
     else:
         zerohs = zerohs + 1
 
+print("\n")
 print("Data 1")
 print("Ones ", ones)
 print("Zerohs ", zerohs)
@@ -30,6 +31,7 @@ print("P_Zerohs ", p_zerohs)
 
 H = -p_zerohs*np.log2(p_zerohs) - (p_ones)*np.log2(p_ones)
 print("The entropy is for data1 is ", H)
+print("\n")
 
 ## Task 1e
 data_2bit = []
@@ -63,3 +65,7 @@ p_zerozero = float(zerozero)/float(data_len)
 H_2bit = -p_zerozero*np.log2(p_zerozero) - (p_zeroone)*np.log2(p_zeroone) \
 - (p_onezero)*np.log2(p_onezero) -(p_oneone)*np.log2(p_oneone)
 print(f"The entropy is for data1 is {H_2bit}")
+
+
+content = open('data1.txt','r').read().replace('\n','')
+print(content)
