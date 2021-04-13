@@ -66,7 +66,7 @@ p_zerozero = float(zerozero)/float(data_len)
 
 H_2bit = -p_zerozero*np.log2(p_zerozero) - (p_zeroone)*np.log2(p_zeroone) \
 - (p_onezero)*np.log2(p_onezero) -(p_oneone)*np.log2(p_oneone)
-print(f"The entropy is for data1 is {H_2bit}")
+print(f"The entropy of two bits is {H_2bit}")
 
 n3=3
 data_3bit =[content[i:i+n3] for i in range(0,len(content),n3)]
@@ -83,15 +83,18 @@ dict_3bit = {"000": 0,
  "110": 0,
  "111": 0,
 }
+
+H_3bit = 0
+
 for i in range(0, np.size(data_3bit)):
     key = data_3bit[i]
     if key in occurence_list_3bit:
         dict_3bit[key] += 1
 
 for key in dict_3bit:
-    H_3bit -= dict_3bit[key]/np.size(data_3bit)+
+    H_3bit -= dict_3bit[key]/np.size(data_3bit)*np.log2(dict_3bit[key]/np.size(data_3bit))
 
-
+print(f"The entropy of three bits: {H_3bit}")
 
 n=4
 data_4bit =[content[i:i+n] for i in range(0,len(content),n)]
@@ -135,6 +138,8 @@ dict_4bit_p = {"0000": 0,
  "1111": 0
 }
 
+H_4bit = 0
+
 for i in range(0, np.size(data_4bit)):
     key = data_4bit[i]
     if key in occurence_list_4bit:
@@ -148,3 +153,9 @@ for key in dict_4bit:
 
 print("\n")
 print(f"Number of {dict_4bit_p}")
+print("\n")
+
+for key in dict_4bit:
+    H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
+
+print(f"The entropy of four bits: {H_4bit}")
