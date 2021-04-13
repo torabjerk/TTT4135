@@ -50,7 +50,16 @@ for i in range(0,data_len,2):
         elif data[i+1] == 0:
             zerozero += 1
 
-print(f"Number of 11s:{oneone}")
+print(f"Number of 11s: {oneone}")
 print(f"Number of 10s: {onezero}")
-print(f"Number of 01s:{zeroone}")
-print(f"Number of 00s:{zerozero}")
+print(f"Number of 01s: {zeroone}")
+print(f"Number of 00s: {zerozero}")
+
+p_oneone = float(oneone)/float(data_len)
+p_onezero = float(onezero)/float(data_len)
+p_zeroone = float(zeroone)/float(data_len)
+p_zerozero = float(zerozero)/float(data_len)
+
+H_2bit = -p_zerozero*np.log2(p_zerozero) - (p_zeroone)*np.log2(p_zeroone) \
+- (p_onezero)*np.log2(p_onezero) -(p_oneone)*np.log2(p_oneone)
+print(f"The entropy is for data1 is {H_2bit}")
