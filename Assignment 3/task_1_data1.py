@@ -18,21 +18,22 @@ for i in range(data_len):
     else:
         zerohs = zerohs + 1
 
-print("\n")
-print("Data 1")
-print("Ones ", ones)
-print("Zerohs ", zerohs)
-print("Size of data ", data_len)
+# print("\n")
+# print("Data 1")
+# print("Ones ", ones)
+# print("Zerohs ", zerohs)
+# print("Size of data ", data_len)
 
 p_ones = float(ones)/float(data_len)
 p_zerohs = float(zerohs)/float(data_len)
 
-print("P_Ones ", p_ones)
-print("P_Zerohs ", p_zerohs)
+# print("P_Ones ", p_ones)
+# print("P_Zerohs ", p_zerohs)
 
 H = -p_zerohs*np.log2(p_zerohs) - (p_ones)*np.log2(p_ones)
-print("The entropy is for data1 is ", H)
 print("\n")
+print("The entropy is for data1 is ", H)
+# print("\n")
 
 ## Task 1e
 data_2bit = []
@@ -53,11 +54,11 @@ for i in range(0,data_len,2):
         elif data[i+1] == 0:
             zerozero += 1
 
-print(f"Number of 11s: {oneone}")
-print(f"Number of 10s: {onezero}")
-print(f"Number of 01s: {zeroone}")
-print(f"Number of 00s: {zerozero}")
-print("\n")
+# print(f"Number of 11s: {oneone}")
+# print(f"Number of 10s: {onezero}")
+# print(f"Number of 01s: {zeroone}")
+# print(f"Number of 00s: {zerozero}")
+# print("\n")
 
 p_oneone = float(oneone)/float(data_len)
 p_onezero = float(onezero)/float(data_len)
@@ -71,8 +72,7 @@ print(f"The entropy of two bits is {H_2bit}")
 n3=3
 data_3bit =[content[i:i+n3] for i in range(0,len(content),n3)]
 
-occurence_list_3bit = ["000", "001", "010", "011", "100", "101", "110", \
-"111"]
+occurence_list_3bit = ["000", "001", "010", "011", "100", "101", "110", "111"]
 
 dict_3bit = {"000": 0,
  "001": 0,
@@ -145,15 +145,17 @@ for i in range(0, np.size(data_4bit)):
     if key in occurence_list_4bit:
         dict_4bit[key] += 1
 
-print("\n")
+"""
+Tror ikke dette er nødvendig å ha med
+Må vell regne ut p?
+
 print(f"Number of {dict_4bit}")
 
 for key in dict_4bit:
         dict_4bit_p[key] = dict_4bit[key]/np.size(data_4bit)
 
-print("\n")
-print(f"Number of {dict_4bit_p}")
-print("\n")
+print(f"Probability of {dict_4bit_p}")
+"""
 
 for key in dict_4bit:
     H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
