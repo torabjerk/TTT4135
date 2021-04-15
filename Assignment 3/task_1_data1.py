@@ -1,7 +1,7 @@
 #Task 1
 
 import numpy as np
-from sumpy import limit
+from sympy import limit
 
 data = np.loadtxt("data1.txt")
 #data2 = np.loadtxt("data2.txt")
@@ -19,19 +19,11 @@ for i in range(data_len):
     else:
         zerohs = zerohs + 1
 
-<<<<<<< HEAD
-# print("\n")
-# print("Data 1")
-# print("Ones ", ones)
-# print("Zerohs ", zerohs)
-# print("Size of data ", data_len)
-=======
 print("\n")
 print("Data 1")
 print("Ones ", ones)
 print("Zerohs ", zerohs)
 print("Size of data ", data_len)
->>>>>>> 973f50315389cea6aa1f9f1c22a31ca427c493cf
 
 p_ones = float(ones)/float(data_len)
 p_zerohs = float(zerohs)/float(data_len)
@@ -42,11 +34,7 @@ p_zerohs = float(zerohs)/float(data_len)
 H = -p_zerohs*np.log2(p_zerohs) - (p_ones)*np.log2(p_ones)
 print("\n")
 print("The entropy is for data1 is ", H)
-<<<<<<< HEAD
-# print("\n")
-=======
 print("\n")
->>>>>>> 973f50315389cea6aa1f9f1c22a31ca427c493cf
 
 ## Task 1e
 data_2bit = []
@@ -67,19 +55,11 @@ for i in range(0,data_len,2):
         elif data[i+1] == 0:
             zerozero += 1
 
-<<<<<<< HEAD
-# print(f"Number of 11s: {oneone}")
-# print(f"Number of 10s: {onezero}")
-# print(f"Number of 01s: {zeroone}")
-# print(f"Number of 00s: {zerozero}")
-# print("\n")
-=======
 print(f"Number of 11s: {oneone}")
 print(f"Number of 10s: {onezero}")
 print(f"Number of 01s: {zeroone}")
 print(f"Number of 00s: {zerozero}")
 print("\n")
->>>>>>> 973f50315389cea6aa1f9f1c22a31ca427c493cf
 
 p_oneone = float(oneone)/float(data_len)
 p_onezero = float(onezero)/float(data_len)
@@ -93,12 +73,8 @@ print(f"The entropy of two bits is {H_2bit}")
 n3=3
 data_3bit =[content[i:i+n3] for i in range(0,len(content),n3)]
 
-<<<<<<< HEAD
-occurence_list_3bit = ["000", "001", "010", "011", "100", "101", "110", "111"]
-=======
 occurence_list_3bit = ["000", "001", "010", "011", "100", "101", "110", \
 "111"]
->>>>>>> 973f50315389cea6aa1f9f1c22a31ca427c493cf
 
 dict_3bit = {"000": 0,
  "001": 0,
@@ -176,37 +152,17 @@ for i in range(0, np.size(data_4bit)):
     if key in occurence_list_4bit:
         dict_4bit[key] += 1
 
-<<<<<<< HEAD
 
 #print(f"Number of {dict_4bit}")
-=======
-<<<<<<< HEAD
-"""
-Tror ikke dette er nødvendig å ha med
-Må vell regne ut p?
-
-=======
-print("\n")
->>>>>>> 973f50315389cea6aa1f9f1c22a31ca427c493cf
 print(f"Number of {dict_4bit}")
->>>>>>> a9f3e466f6238497f2a1cb8984096e2e5f5508b6
+
 
 for key in dict_4bit:
         dict_4bit_p[key] = dict_4bit[key]/np.size(data_4bit)
 
-<<<<<<< HEAD
 #print(f"Number of {dict_4bit_p}")
 
-=======
-<<<<<<< HEAD
-print(f"Probability of {dict_4bit_p}")
-"""
-=======
-print("\n")
-print(f"Number of {dict_4bit_p}")
-print("\n")
->>>>>>> 973f50315389cea6aa1f9f1c22a31ca427c493cf
->>>>>>> a9f3e466f6238497f2a1cb8984096e2e5f5508b6
+
 
 for key in dict_4bit:
     H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
