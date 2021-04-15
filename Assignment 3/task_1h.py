@@ -1,10 +1,10 @@
 #Run length code
 import numpy as np
-#data = np.loadtxt("data1.txt")
+data = np.loadtxt("data3.txt")
 #data2 = np.loadtxt("data2.txt")
 #data3 = np.loadtxt("data3.txt")
 
-data = "11100101000000000"
+#data = "11100101000000000"
 N = [7, 15, 31, 63, 127]
 
 def run_lenght(data, n):
@@ -25,7 +25,6 @@ def run_lenght(data, n):
         if count > n:
             M = count - n
             count_str = f"{n}{data[i]}{M}"
-            print(count_str)
         else:
             count_str = str(count)
 
@@ -33,7 +32,9 @@ def run_lenght(data, n):
         i+= 1
 
     return C
+code = []
+for item in N:
+    code.append(run_lenght(data,item))
 
-
-code = run_lenght(data, N[0])
-print(code)
+print(code[0])
+print(len(code))
