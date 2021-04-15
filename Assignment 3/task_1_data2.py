@@ -145,6 +145,7 @@ for i in range(0, np.size(data_4bit)):
 """
 Tror ikke dette er nødvendig å ha med
 Må vell regne ut p?
+"""
 
 print(f"Number of {dict_4bit}")
 
