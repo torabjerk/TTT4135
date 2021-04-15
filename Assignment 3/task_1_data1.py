@@ -1,10 +1,10 @@
 #Task 1
 
 import numpy as np
-data = np.loadtxt("data2.txt")
+data = np.loadtxt("data1.txt")
 #data2 = np.loadtxt("data2.txt")
 #data3 = np.loadtxt("data3.txt")
-content = open('data2.txt','r').read().replace('\n','')
+content = open('data1.txt','r').read().replace('\n','')
 
 ## Task 1d
 data_len = np.size(data)
@@ -155,20 +155,11 @@ print(f"Number of {dict_4bit}")
 for key in dict_4bit:
         dict_4bit_p[key] = dict_4bit[key]/np.size(data_4bit)
 
-#print(f"Number of {dict_4bit_p}")
+print("\n")
+print(f"Number of {dict_4bit_p}")
+print("\n")
 
 for key in dict_4bit:
     H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
 
-print(f"\nThe entropy of four bits: {H_4bit}")
-
-
-# 1f entropy rate
-""" It is assumed that the random varables are iid."""
-
-symbol_length = 12 #started on 15
-n = symbols('n')
-prob = [p_ones, p_zerohs]
-f = 1/n*sum(prob)
-entropy_rate = limit(f,n,symbol_length)
-print(f"\nThe entropy rate is: {entropy_rate}")
+print(f"The entropy of four bits: {H_4bit}")
