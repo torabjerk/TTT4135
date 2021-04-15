@@ -5,6 +5,7 @@ import numpy as np
 #data = np.loadtxt("data1.txt")
 data = np.loadtxt("data2.txt")
 #data3 = np.loadtxt("data3.txt")
+content = open('data2.txt','r').read().replace('\n','')
 
 data_len = np.size(data)
 ones = 0
@@ -17,15 +18,15 @@ for i in range(np.size(data)):
         zerohs = zerohs + 1
 
 print("Data 2")
-print("Ones ", ones)
-print("Zerohs ", zerohs)
-print("Size of data ", data_len)
+#print("Ones ", ones)
+#print("Zerohs ", zerohs)
+#print("Size of data ", data_len)
 
 p_ones = float(ones)/float(data_len)
 p_zerohs = float(zerohs)/float(data_len)
 
-print("P_Ones ", p_ones)
-print("P_Zerohs ", p_zerohs)
+#print("P_Ones ", p_ones)
+#print("P_Zerohs ", p_zerohs)
 
 H = -p_zerohs*np.log2(p_zerohs) - (p_ones)*np.log2(p_ones)
 print("The entropy is for data2 is ", H)
@@ -50,11 +51,11 @@ for i in range(0,data_len,2):
         elif data[i+1] == 0:
             zerozero += 1
 
-print(f"Number of 11s: {oneone}")
-print(f"Number of 10s: {onezero}")
-print(f"Number of 01s: {zeroone}")
-print(f"Number of 00s: {zerozero}")
-print("\n")
+#print(f"Number of 11s: {oneone}")
+#print(f"Number of 10s: {onezero}")
+#print(f"Number of 01s: {zeroone}")
+#print(f"Number of 00s: {zerozero}")
+#print("\n")
 
 p_oneone = float(oneone)/float(data_len)
 p_onezero = float(onezero)/float(data_len)
@@ -147,14 +148,14 @@ Tror ikke dette er nødvendig å ha med
 Må vell regne ut p?
 """
 
-print(f"Number of {dict_4bit}")
+#print(f"Number of {dict_4bit}")
 
 for key in dict_4bit:
         dict_4bit_p[key] = dict_4bit[key]/np.size(data_4bit)
 
-print("\n")
-print(f"Number of {dict_4bit_p}")
-print("\n")
+#print("\n")
+#print(f"Number of {dict_4bit_p}")
+#print("\n")
 
 for key in dict_4bit:
     H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
