@@ -176,8 +176,6 @@ for key in dict_4bit:
 
 #print(f"Number of {dict_4bit_p}")
 
-
-
 for key in dict_4bit:
     H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
 
@@ -185,7 +183,9 @@ print(f"\nThe entropy of four bits: {H_4bit}")
 
 
 # 1f entropy rate
-symbol_length = 15
+""" It is assumed that the random varables are iid."""
+
+symbol_length = 12 #started on 15
 n = symbols('n')
 prob = [p_ones, p_zerohs]
 f = 1/n*sum(prob)
