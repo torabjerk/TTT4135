@@ -1,8 +1,6 @@
 #Task 1
 
 import numpy as np
-from sympy import limit, symbols
-
 data = np.loadtxt("data1.txt")
 #data2 = np.loadtxt("data2.txt")
 #data3 = np.loadtxt("data3.txt")
@@ -85,23 +83,6 @@ dict_3bit = {"000": 0,
  "110": 0,
  "111": 0,
 }
-dict_3bit_p = {"0000": 0,
- "0001": 0,
- "0010": 0,
- "0011": 0,
- "0100": 0,
- "0101": 0,
- "0110": 0,
- "0111": 0,
- "1000": 0,
- "1001": 0,
- "1010": 0,
- "1011": 0,
- "1100": 0,
- "1101": 0,
- "1110": 0,
- "1111": 0
-}
 
 H_3bit = 0
 
@@ -110,15 +91,10 @@ for i in range(0, np.size(data_3bit)):
     if key in occurence_list_3bit:
         dict_3bit[key] += 1
 
-
-for key in dict_3bit:
-    dict_3bit_p[key] = dict_3bit[key]/np.size(data_3bit)
-
-
 for key in dict_3bit:
     H_3bit -= dict_3bit[key]/np.size(data_3bit)*np.log2(dict_3bit[key]/np.size(data_3bit))
 
-print(f"\nThe entropy of three bits: {H_3bit}")
+print(f"The entropy of three bits: {H_3bit}")
 
 n=4
 data_4bit =[content[i:i+n] for i in range(0,len(content),n)]
@@ -169,25 +145,20 @@ for i in range(0, np.size(data_4bit)):
     if key in occurence_list_4bit:
         dict_4bit[key] += 1
 
-#print(f"Number of {dict_4bit}")
+"""
+Tror ikke dette er nødvendig å ha med
+Må vell regne ut p?
+
+print(f"Number of {dict_4bit}")
 
 for key in dict_4bit:
         dict_4bit_p[key] = dict_4bit[key]/np.size(data_4bit)
 
-#print(f"Number of {dict_4bit_p}")
-
-
+print("\n")
+print(f"Number of {dict_4bit_p}")
+print("\n")
 
 for key in dict_4bit:
     H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
 
-print(f"\nThe entropy of four bits: {H_4bit}")
-
-
-# 1f entropy rate
-symbol_length = 15
-n = symbols('n')
-prob = [p_ones, p_zerohs]
-f = 1/n*sum(prob)
-entropy_rate = limit(f,n,symbol_length)
-print(f"\nThe entropy rate is: {entropy_rate}")
+print(f"The entropy of four bits: {H_4bit}")
