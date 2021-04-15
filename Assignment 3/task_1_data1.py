@@ -1,6 +1,7 @@
 #Task 1
 
 import numpy as np
+from sumpy import limit
 
 data = np.loadtxt("data1.txt")
 #data2 = np.loadtxt("data2.txt")
@@ -91,10 +92,15 @@ for i in range(0, np.size(data_3bit)):
     if key in occurence_list_3bit:
         dict_3bit[key] += 1
 
+
+for key in dict_4bit:
+        dict_3bit_p[key] = dict_3bit[key]/np.size(data_4bit)
+
+
 for key in dict_3bit:
     H_3bit -= dict_3bit[key]/np.size(data_3bit)*np.log2(dict_3bit[key]/np.size(data_3bit))
 
-print(f"The entropy of three bits: {H_3bit}")
+print(f"\nThe entropy of three bits: {H_3bit}")
 
 n=4
 data_4bit =[content[i:i+n] for i in range(0,len(content),n)]
@@ -145,17 +151,23 @@ for i in range(0, np.size(data_4bit)):
     if key in occurence_list_4bit:
         dict_4bit[key] += 1
 
-print("\n")
-print(f"Number of {dict_4bit}")
+
+#print(f"Number of {dict_4bit}")
 
 for key in dict_4bit:
         dict_4bit_p[key] = dict_4bit[key]/np.size(data_4bit)
 
-print("\n")
-print(f"Number of {dict_4bit_p}")
-print("\n")
+#print(f"Number of {dict_4bit_p}")
+
 
 for key in dict_4bit:
     H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
 
-print(f"The entropy of four bits: {H_4bit}")
+print(f"\nThe entropy of four bits: {H_4bit}")
+
+
+# 1f entropy rate
+symbol_length = 15
+
+entropy_rate = limit(1/symbol_length*(p_ones+p_zerohs))
+print(f"\nThe entropy rate is: {entropy_rate}")
