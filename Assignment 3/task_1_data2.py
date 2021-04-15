@@ -29,7 +29,7 @@ p_zerohs = float(zerohs)/float(data_len)
 #print("P_Zerohs ", p_zerohs)
 
 H = -p_zerohs*np.log2(p_zerohs) - (p_ones)*np.log2(p_ones)
-print("The entropy is for one bit is ", H)
+print("The entropy is for data2 is ", H)
 
 
 ## Task 1e
@@ -51,21 +51,19 @@ for i in range(0,data_len,2):
         elif data[i+1] == 0:
             zerozero += 1
 
-"""
-print(f"Number of 11s: {oneone}")
-print(f"Number of 10s: {onezero}")
-print(f"Number of 01s: {zeroone}")
-print(f"Number of 00s: {zerozero}")
-print("\n")
-"""
+#print(f"Number of 11s: {oneone}")
+#print(f"Number of 10s: {onezero}")
+#print(f"Number of 01s: {zeroone}")
+#print(f"Number of 00s: {zerozero}")
+#print("\n")
 
 p_oneone = float(oneone)/float(data_len)
 p_onezero = float(onezero)/float(data_len)
 p_zeroone = float(zeroone)/float(data_len)
 p_zerozero = float(zerozero)/float(data_len)
 
-H_2bit = - (p_zeroone)*np.log2(p_zeroone) \
-- (p_onezero)*np.log2(p_onezero) -(p_oneone)*np.log2(p_oneone) #-p_zerozero*np.log2(p_zerozero) is removed due to divide by zero
+H_2bit = -p_zerozero*np.log2(p_zerozero) - (p_zeroone)*np.log2(p_zeroone) \
+- (p_onezero)*np.log2(p_onezero) -(p_oneone)*np.log2(p_oneone)
 print(f"The entropy of two bits is {H_2bit}")
 
 n3=3
@@ -92,8 +90,7 @@ for i in range(0, np.size(data_3bit)):
         dict_3bit[key] += 1
 
 for key in dict_3bit:
-    if dict_3bit[key] != 0:
-        H_3bit -= dict_3bit[key]/np.size(data_3bit)*np.log2(dict_3bit[key]/np.size(data_3bit))
+    H_3bit -= dict_3bit[key]/np.size(data_3bit)*np.log2(dict_3bit[key]/np.size(data_3bit))
 
 print(f"The entropy of three bits: {H_3bit}")
 
@@ -160,8 +157,7 @@ for key in dict_4bit:
 #print(f"Number of {dict_4bit_p}")
 #print("\n")
 
-for key in dict_4bit_p:
-    if dict_4bit[key] != 0:
-        H_4bit -= dict_4bit_p[key]*np.log2(dict_4bit_p[key])
+for key in dict_4bit:
+    H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
 
 print(f"The entropy of four bits: {H_4bit}")
