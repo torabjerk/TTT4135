@@ -1,26 +1,27 @@
 #Run length code
-
+import numpy as np
+#data = np.loadtxt("data1.txt")
+#data2 = np.loadtxt("data2.txt")
+#data3 = np.loadtxt("data3.txt")
+data = "1110010100010000"
 N = [7, 15, 31, 63, 127]
+len_data = len(data)
+C = ""
+print(len_data)
 
-def printRLE(st):
-    n = len(st)
-    i = 0
-    while i < n- 1:
+if data[0] != 0:
+    C += "0"
 
-        # Count occurrences of
-        # current character
-        count = 1
-        while (i < n - 1 and
-               st[i] == st[i + 1]):
-            count += 1
-            i += 1
-        i += 1
-
-        # Print character and its count
-        print(st[i - 1] +
-              str(count),
-              end = "")
+i = 0
+while i < len_data-1:
+    count = 1
+    while (i < len_data-1 and data[i] == data[i+1]):
+        #print("hello")
+        count += 1
+        i+=1
+    i+= 1
+    
+    C += str(count)
 
 
-st = "wwwwaaadexxxxxxywww"
-printRLE(st)
+print(C)
