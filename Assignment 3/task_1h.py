@@ -38,9 +38,9 @@ for item in N:
 
 coding_gain = {}
 for i in range(len(N)):
-    coding_gain[i] = len(data)/len(item)
+    coding_gain[N[i]] = len(data)/len(code[i])
 
-print(coding_gain)
+print("Coding gain:",coding_gain)
 
 #print(code[0])
 #print(len(code))
