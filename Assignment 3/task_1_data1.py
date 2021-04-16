@@ -85,6 +85,23 @@ dict_3bit = {"000": 0,
  "110": 0,
  "111": 0,
 }
+dict_4bit_p = {"0000": 0,
+ "0001": 0,
+ "0010": 0,
+ "0011": 0,
+ "0100": 0,
+ "0101": 0,
+ "0110": 0,
+ "0111": 0,
+ "1000": 0,
+ "1001": 0,
+ "1010": 0,
+ "1011": 0,
+ "1100": 0,
+ "1101": 0,
+ "1110": 0,
+ "1111": 0
+}
 
 H_3bit = 0
 
@@ -94,8 +111,12 @@ for i in range(0, np.size(data_3bit)):
         dict_3bit[key] += 1
 
 for key in dict_3bit:
-    if
-    H_3bit -= dict_3bit[key]/np.size(data_3bit)*np.log2(dict_3bit[key]/np.size(data_3bit))
+        dict_3bit_p[key] = dict_3bit[key]/np.size(data_3bit)
+
+for key in dict_3bit:
+    if dict_3bit_p[key] == 0:
+        continue
+    H_3bit -= dict_3bit_p[key]*np.log2(dict_3bit_p[key])
 
 print(f"The entropy of three bits: {H_3bit}")
 
