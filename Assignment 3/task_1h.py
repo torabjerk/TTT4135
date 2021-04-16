@@ -36,5 +36,6 @@ code = []
 for item in N:
     code.append(run_lenght(data,item))
 
-print(code[0])
-print(len(code))
+#print(code[0])
+#print(len(code))
+## # TODO: Calculate coding gain
