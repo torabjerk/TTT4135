@@ -26,12 +26,17 @@ testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
                                          shuffle=False, **kwargs)
 #X_train, X_val, y_train, y_val = train_test_split(trainset)
 
+print("trainset", trainset)
+print("trainloader", trainloader)
+
 classes = ('plane', 'car', 'bird', 'cat', 'deer',
            'dog', 'frog', 'horse', 'ship', 'truck')
 
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
+        # First 2D convolutional layer, taking in 3 input channel (image),
+        # outputting 6 convolutional features, with a square kernel size of 5
         self.conv1 = nn.Conv2d(3, 6, 5)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 5)
