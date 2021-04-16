@@ -33,7 +33,7 @@ p_zerohs = float(zerohs)/float(data_len)
 
 H = -p_zerohs*np.log2(p_zerohs) - (p_ones)*np.log2(p_ones)
 print("\n")
-print("The entropy is for data1 is ", H)
+print("The entropy of 1 bit is is ", H)
 print("\n")
 
 ## Task 1e
@@ -169,13 +169,9 @@ for i in range(0, np.size(data_4bit)):
     if key in occurence_list_4bit:
         dict_4bit[key] += 1
 
-
-print(f"Number of {dict_4bit}")
-
 for key in dict_4bit:
         dict_4bit_p[key] = dict_4bit[key]/np.size(data_4bit)
 
-#print(f"Number of {dict_4bit_p}")
 
 for key in dict_4bit:
     if dict_4bit_p[key] == 0:
@@ -188,9 +184,24 @@ print(f"\nThe entropy of four bits: {H_4bit}")
 # 1f entropy rate
 """ It is assumed that the random varables are iid."""
 
-symbol_length = 127 #started on 15
+symbol_length = 15 #started on 15
 n = symbols('n')
-prob = [p_ones, p_zerohs]
-f = 1/n*sum(prob)
-entropy_rate = limit(f,n,symbol_length)
-print(f"\nThe entropy rate is: {entropy_rate}")
+prob1 = [p_ones, p_zerohs]
+prob2 = [p_oneone, p_onezero, p_zeroone, p_zerozero]
+prob3 = [dict_3bit_p[key] for key in dict_3bit_p]
+prob4 = [dict_4bit_p[key] for key in dict_4bit_p]
+
+f1 = 1/n*sum(prob1)
+f2 = 1/n*sum(prob2)
+f3 = 1/n*sum(prob3)
+f4 = 1/n*sum(prob4)
+entropy_rate1 = limit(f1,n,symbol_length)
+entropy_rate2 = limit(f2,n,symbol_length)
+entropy_rate3 = limit(f3,n,symbol_length)
+entropy_rate4 = limit(f4,n,symbol_length)
+print(f"\nThe entropy rate for 1 bit is: {entropy_rate1}")
+print(f"\nThe entropy rate for 2 bit is: {entropy_rate2}")
+print(f"\nThe entropy rate for 3 bit is: {entropy_rate3}")
+print(f"\nThe entropy rate for 4 bit is: {entropy_rate4}")
+print(f"A symbol length equal to 1 gives an entropy rate of 1. Increasing \
+the symbol lenght gives an entropy rate going towards zero. ")
