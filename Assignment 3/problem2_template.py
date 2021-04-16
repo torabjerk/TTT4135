@@ -1,20 +1,30 @@
 #!/usr/bin/env python3
-
+#import numpy as np
 import torch
 import torchvision
 import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
+<<<<<<< HEAD
+#import scikit-learn
+#from sklearn.model_selection import train_test_split
+=======
 from sklearn.model_selection import train_test_split
+<<<<<<< HEAD
+=======
+>>>>>>> 12634c98d7c8c6edcb8e4a560fafc615a1c8bd19
 
+>>>>>>> 08b80c2395d619f0f97af877fe63005a946546c2
 
 transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize((0.5, 0.5, 0.5),
                                                      (0.5, 0.5, 0.5))])
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
+
+print(device)
 kwargs = {} if device=='cpu' else {'num_workers': 1, 'pin_memory': True}
-batch_size=4
+batch_size = 4
 
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                         download=True, transform=transform)
@@ -24,7 +34,24 @@ testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                        download=True, transform=transform)
 testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
                                          shuffle=False, **kwargs)
-#X_train, X_val, y_train, y_val = train_test_split(trainset)
+"""
+train_set, val_set = torch.utils.data.random_split(dataset, [trainsize,valsize])
+
+for i, data in enumerate(trainloader, 0):
+    input, label = data[0].to(device), data[1].to(device)
+
+#50000 trainingset
+#10000 testset
+
+
+print(X_train)
+#print("trainset", trainset)
+#print("trainloader", trainloader)
+"""
+
+X_train, X_val, y_train, y_val = train_test_split(trainloader)
+
+print(X_train)
 
 classes = ('plane', 'car', 'bird', 'cat', 'deer',
            'dog', 'frog', 'horse', 'ship', 'truck')
@@ -32,6 +59,8 @@ classes = ('plane', 'car', 'bird', 'cat', 'deer',
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
+        # First 2D convolutional layer, taking in 3 input channel (image),
+        # outputting 6 convolutional features, with a square kernel size of 5
         self.conv1 = nn.Conv2d(3, 6, 5)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 5)
