@@ -24,17 +24,24 @@ testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                        download=True, transform=transform)
 testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
                                          shuffle=False, **kwargs)
+"""
+train_set, val_set = torch.utils.data.random_split(dataset, [trainsize,valsize])
 
 for i, data in enumerate(trainloader, 0):
-    X_train, X_val, y_train, y_val = train_test_split(data)
+    input, label = data[0].to(device), data[1].to(device)
+
+#50000 trainingset
+#10000 testset
+
 
 print(X_train)
 #print("trainset", trainset)
 #print("trainloader", trainloader)
+"""
 
 classes = ('plane', 'car', 'bird', 'cat', 'deer',
            'dog', 'frog', 'horse', 'ship', 'truck')
-"""
+
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
@@ -100,4 +107,3 @@ with torch.no_grad():
 
 print('Accuracy of the network on the 10000 test images: %d %%'
       % (100 * correct / total))
-"""
