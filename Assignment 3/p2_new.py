@@ -1,31 +1,17 @@
 #!/usr/bin/env python3
-#import numpy as np
+
 import torch
 import torchvision
 import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-<<<<<<< HEAD
-#import scikit-learn
-#from sklearn.model_selection import train_test_split
-=======
 from sklearn.model_selection import train_test_split
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 12634c98d7c8c6edcb8e4a560fafc615a1c8bd19
-
->>>>>>> 08b80c2395d619f0f97af877fe63005a946546c2
-=======
->>>>>>> 3859f2d0663ec91b837ea3bc1df6e5d8d1ce7970
 
 transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize((0.5, 0.5, 0.5),
                                                      (0.5, 0.5, 0.5))])
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
-
-print(device)
 kwargs = {} if device=='cpu' else {'num_workers': 1, 'pin_memory': True}
 batch_size = 4
 
@@ -99,14 +85,14 @@ for epoch in range(5):  # loop over the dataset multiple times
         running_loss += loss.item()
         correct = 0
         total = 0
-        with torch.no_grad():
-            for data in val_loader:
-                images, labels = data[0].to(device), data[1].to(device)
-                # images, labels = data
-                outputs = net(images)
-                _, predicted = torch.max(outputs.data, 1)
-                total += labels.size(0)
-                correct += (predicted == labels).sum().item()
+    with torch.no_grad():
+        for data in val_loader:
+            images, labels = data[0].to(device), data[1].to(device)
+            # images, labels = data
+            outputs = net(images)
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
 
 
     print('[%d] loss: %.3f' %
