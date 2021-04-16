@@ -8,12 +8,16 @@ import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
 
+
+
 transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize((0.5, 0.5, 0.5),
                                                      (0.5, 0.5, 0.5))])
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
-kwargs = {} if device=='cpu' else {'num_workers': 1, 'pin_memory': True}
+print(device)
+kwargs = {} if device=='cpu' else {'num_workers': 0, 'pin_memory': True}
 batch_size = 4
+print(kwargs)
 
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                         download=True, transform=transform)
@@ -65,6 +69,10 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
 for epoch in range(5):  # loop over the dataset multiple times
+
+
+
+
 
     running_loss = 0.0
     for i, data in enumerate(train_loader, 0): #trainloader changed to train_loader
