@@ -1,7 +1,9 @@
 #Task 1
 
 import numpy as np
-data = np.loadtxt("data2.txt")
+from sympy import symbols, limit
+
+data = np.loadtxt("data1.txt")
 #data2 = np.loadtxt("data2.txt")
 #data3 = np.loadtxt("data3.txt")
 content = open('data2.txt','r').read().replace('\n','')
@@ -92,6 +94,7 @@ for i in range(0, np.size(data_3bit)):
         dict_3bit[key] += 1
 
 for key in dict_3bit:
+    if
     H_3bit -= dict_3bit[key]/np.size(data_3bit)*np.log2(dict_3bit[key]/np.size(data_3bit))
 
 print(f"The entropy of three bits: {H_3bit}")
@@ -145,10 +148,6 @@ for i in range(0, np.size(data_4bit)):
     if key in occurence_list_4bit:
         dict_4bit[key] += 1
 
-"""
-Tror ikke dette er nødvendig å ha med
-Må vell regne ut p?
-"""
 
 print(f"Number of {dict_4bit}")
 
@@ -158,7 +157,9 @@ for key in dict_4bit:
 #print(f"Number of {dict_4bit_p}")
 
 for key in dict_4bit:
-    H_4bit -= dict_4bit[key]/np.size(data_4bit)*np.log2(dict_4bit[key]/np.size(data_4bit))
+    if dict_4bit_p[key] == 0:
+        continue
+    H_4bit -= dict_4bit_p[key]*np.log2(dict_4bit_p[key])
 
 print(f"\nThe entropy of four bits: {H_4bit}")
 
@@ -166,7 +167,7 @@ print(f"\nThe entropy of four bits: {H_4bit}")
 # 1f entropy rate
 """ It is assumed that the random varables are iid."""
 
-symbol_length = 12 #started on 15
+symbol_length = 127 #started on 15
 n = symbols('n')
 prob = [p_ones, p_zerohs]
 f = 1/n*sum(prob)
