@@ -6,14 +6,14 @@ import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-
+from sklearn.model_selection import train_test_split
 
 transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize((0.5, 0.5, 0.5),
                                                      (0.5, 0.5, 0.5))])
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 kwargs = {} if device=='cpu' else {'num_workers': 1, 'pin_memory': True}
-batch_size=4
+batch_size = 4
 
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                         download=True, transform=transform)
@@ -23,6 +23,10 @@ testset = torchvision.datasets.CIFAR10(root='./data', train=False,
                                        download=True, transform=transform)
 testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
                                          shuffle=False, **kwargs)
+
+X_train, X_val, y_train, y_val = train_test_split(trainloader)
+
+print(X_train)
 
 classes = ('plane', 'car', 'bird', 'cat', 'deer',
            'dog', 'frog', 'horse', 'ship', 'truck')
