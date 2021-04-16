@@ -204,4 +204,5 @@ print(f"\nThe entropy rate for 2 bit is: {entropy_rate2}")
 print(f"\nThe entropy rate for 3 bit is: {entropy_rate3}")
 print(f"\nThe entropy rate for 4 bit is: {entropy_rate4}")
 print(f"A symbol length equal to 1 gives an entropy rate of 1. Increasing \
-the symbol lenght gives an entropy rate going towards zero. ")
+the symbol lenght gives an entropy rate going towards zero. \
+We have chosen a symbol length of {symbol_length}. ")
