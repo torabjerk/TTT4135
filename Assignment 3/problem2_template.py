@@ -1,18 +1,21 @@
 #!/usr/bin/env python3
-
+#import numpy as np
 import torch
 import torchvision
 import torchvision.transforms as transforms
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from sklearn.model_selection import train_test_split
+#import scikit-learn
+#from sklearn.model_selection import train_test_split
 
 
 transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize((0.5, 0.5, 0.5),
                                                      (0.5, 0.5, 0.5))])
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
+
+print(device)
 kwargs = {} if device=='cpu' else {'num_workers': 1, 'pin_memory': True}
 batch_size=4
 
