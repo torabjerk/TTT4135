@@ -40,7 +40,7 @@ coding_gain = {}
 for i in range(len(N)):
     coding_gain[N[i]] = len(data)/len(code[i])
 
-print("Coding gain:",coding_gain)
+print("Coding gain: (not dB)", coding_gain)
 
 #print(code[0])
 #print(len(code))
