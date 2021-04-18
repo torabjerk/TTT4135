@@ -8,16 +8,27 @@ import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
 
-
+from sklearn.metrics import precision_recall_curve
+from sklearn.metrics import average_precision_score
 
 transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize((0.5, 0.5, 0.5),
                                                      (0.5, 0.5, 0.5))])
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
-print(device)
+print("Device: ",device)
 kwargs = {} if device=='cpu' else {'num_workers': 0, 'pin_memory': True}
-batch_size = 4
+batch_size = 10
 print(kwargs)
+
+print("\n")
+print(f"CUDA avalible: {torch.cuda.is_available()}")
+print(f"Current device {torch.cuda.current_device()}")
+print(f"Device 0 {torch.cuda.device(0)}")
+print(f"Device count {torch.cuda.device_count()}")
+print(f"Device name {torch.cuda.get_device_name(0)}")
+print("\n")
+
+
 
 trainset = torchvision.datasets.CIFAR10(root='./data', train=True,
                                         download=True, transform=transform)
@@ -28,8 +39,8 @@ testset = torchvision.datasets.CIFAR10(root='./data', train=False,
 testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size,
                                          shuffle=False, **kwargs)
 
-trainsize = 30000
-valsize = 20000
+trainsize = 40000
+valsize = 10000
 
 train_set, val_set = torch.utils.data.random_split(trainset, [trainsize,valsize])
 train_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size,
@@ -68,11 +79,7 @@ net.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
-for epoch in range(5):  # loop over the dataset multiple times
-
-
-
-
+for epoch in range(25):  # loop over the dataset multiple times
 
     running_loss = 0.0
     for i, data in enumerate(train_loader, 0): #trainloader changed to train_loader
@@ -123,3 +130,22 @@ with torch.no_grad():
 
 print('Accuracy of the network on the 10000 test images: %d %%'
       % (100 * correct / total))
+
+"""
+# For each class
+precision = dict()
+recall = dict()
+average_precision = dict()
+for i in range(n_classes):
+    precision[i], recall[i], _ = precision_recall_curve(Y_test[:, i],
+                                                        y_score[:, i])
+    average_precision[i] = average_precision_score(Y_test[:, i], y_score[:, i])
+
+# A "micro-average": quantifying score on all classes jointly
+precision["micro"], recall["micro"], _ = precision_recall_curve(Y_test.ravel(),
+    y_score.ravel())
+average_precision["micro"] = average_precision_score(Y_test, y_score,
+                                                     average="micro")
+print('Average precision score, micro-averaged over all classes: {0:0.2f}'
+      .format(average_precision["micro"]))
+"""
