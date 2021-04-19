@@ -184,17 +184,23 @@ print(f"\nThe entropy of four bits: {H_4bit}")
 # 1f entropy rate
 """ It is assumed that the random varables are iid."""
 
-symbol_length = 15 #started on 15
+symbol_length = 127 #started on 15
 n = symbols('n')
 prob1 = [p_ones, p_zerohs]
 prob2 = [p_oneone, p_onezero, p_zeroone, p_zerozero]
 prob3 = [dict_3bit_p[key] for key in dict_3bit_p]
 prob4 = [dict_4bit_p[key] for key in dict_4bit_p]
 
-f1 = 1/n*sum(prob1)
-f2 = 1/n*sum(prob2)
-f3 = 1/n*sum(prob3)
-f4 = 1/n*sum(prob4)
+hi1 = [-item*np.log2(item) for item in prob1]
+hi2 = [-item*np.log2(item) for item in prob2]
+hi3 = [-item*np.log2(item) for item in prob3 if item !=0]
+hi4 = [-item*np.log2(item) for item in prob4 if item !=0]
+
+f1 = 1/n*sum(hi1)
+f2 = 1/n*sum(hi2)
+f3 = 1/n*sum(hi3)
+f4 = 1/n*sum(hi4)
+
 entropy_rate1 = limit(f1,n,symbol_length)
 entropy_rate2 = limit(f2,n,symbol_length)
 entropy_rate3 = limit(f3,n,symbol_length)
@@ -203,6 +209,6 @@ print(f"\nThe entropy rate for 1 bit is: {entropy_rate1}")
 print(f"\nThe entropy rate for 2 bit is: {entropy_rate2}")
 print(f"\nThe entropy rate for 3 bit is: {entropy_rate3}")
 print(f"\nThe entropy rate for 4 bit is: {entropy_rate4}")
-print(f"A symbol length equal to 1 gives an entropy rate of 1. Increasing \
-the symbol lenght gives an entropy rate going towards zero. \
+print(f"A symbol length equal to 1 makes the entropy rate equal to the entropy.\
+ Increasing the symbol lenght gives an entropy rate going towards zero. \
 We have chosen a symbol length of {symbol_length}. ")
