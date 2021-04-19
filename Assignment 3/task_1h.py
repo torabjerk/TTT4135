@@ -42,6 +42,6 @@ for i in range(len(N)):
 
 print("Coding gain: (not dB)", coding_gain)
 
-#print(code[0])
-#print(len(code))
-## # TODO: Calculate coding gain
+for key in coding_gain:
+    print(f"Coding gain (Max sequence = {key}): (not dB) {coding_gain[key]}"")
+print(f"Coding gain for compression of data4.bin: {223918/524416}")
