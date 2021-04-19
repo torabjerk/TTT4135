@@ -3,10 +3,10 @@
 import numpy as np
 from sympy import symbols, limit
 
-data = np.loadtxt("data1.txt")
+data = np.loadtxt("data3.txt")
 #data2 = np.loadtxt("data2.txt")
 #data3 = np.loadtxt("data3.txt")
-content = open('data1.txt','r').read().replace('\n','')
+content = open('data3.txt','r').read().replace('\n','')
 
 ## Task 1d
 data_len = np.size(data)
@@ -20,7 +20,7 @@ for i in range(data_len):
         zerohs = zerohs + 1
 
 print("\n")
-print("Data 1")
+print("Data 2")
 print("Ones ", ones)
 print("Zerohs ", zerohs)
 print("Size of data ", data_len)
@@ -61,13 +61,18 @@ print(f"Number of 01s: {zeroone}")
 print(f"Number of 00s: {zerozero}")
 print("\n")
 
-p_oneone = float(oneone)/float(data_len)
-p_onezero = float(onezero)/float(data_len)
-p_zeroone = float(zeroone)/float(data_len)
-p_zerozero = float(zerozero)/float(data_len)
+dict_2bit_p = {
+"11":float(oneone)/float(data_len),
+"10": float(onezero)/float(data_len),
+"01": float(zeroone)/float(data_len),
+"00": float(zerozero)/float(data_len)
+}
 
-H_2bit = -p_zerozero*np.log2(p_zerozero) - (p_zeroone)*np.log2(p_zeroone) \
-- (p_onezero)*np.log2(p_onezero) -(p_oneone)*np.log2(p_oneone)
+H_2bit = 0
+for key in dict_2bit_p:
+    if dict_2bit_p[key] != 0:
+        H_2bit -= dict_2bit_p[key]*np.log2(dict_2bit_p[key])
+
 print(f"The entropy of two bits is {H_2bit}")
 
 n3=3
@@ -187,12 +192,12 @@ print(f"\nThe entropy of four bits: {H_4bit}")
 symbol_length = 127 #started on 15
 n = symbols('n')
 prob1 = [p_ones, p_zerohs]
-prob2 = [p_oneone, p_onezero, p_zeroone, p_zerozero]
+prob2 = [dict_2bit_p[key] for key in dict_2bit_p]
 prob3 = [dict_3bit_p[key] for key in dict_3bit_p]
 prob4 = [dict_4bit_p[key] for key in dict_4bit_p]
 
 hi1 = [-item*np.log2(item) for item in prob1]
-hi2 = [-item*np.log2(item) for item in prob2]
+hi2 = [-item*np.log2(item) for item in prob2 if item !=0]
 hi3 = [-item*np.log2(item) for item in prob3 if item !=0]
 hi4 = [-item*np.log2(item) for item in prob4 if item !=0]
 

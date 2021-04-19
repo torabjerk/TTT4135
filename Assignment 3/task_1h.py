@@ -38,10 +38,10 @@ for item in N:
 
 coding_gain = {}
 for i in range(len(N)):
-    coding_gain[N[i]] = len(data)/len(code[i])
+    coding_gain[N[i]] = len(code[i])/len(data)
 
 print("Coding gain: (not dB)", coding_gain)
 
 for key in coding_gain:
-    print(f"Coding gain (Max sequence = {key}): (not dB) {coding_gain[key]}"")
+    print(f"Coding gain (Max sequence = {key}): (not dB) {coding_gain[key]}")
 print(f"Coding gain for compression of data4.bin: {223918/524416}")
