@@ -6,7 +6,7 @@ from sympy import symbols, limit
 data = np.loadtxt("data1.txt")
 #data2 = np.loadtxt("data2.txt")
 #data3 = np.loadtxt("data3.txt")
-content = open('data2.txt','r').read().replace('\n','')
+content = open('data1.txt','r').read().replace('\n','')
 
 ## Task 1d
 data_len = np.size(data)
