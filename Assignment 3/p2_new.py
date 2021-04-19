@@ -151,17 +151,26 @@ print("\n")
 class_correct = list(0. for i in range(10))
 class_total = list(0. for i in range(10))
 
-
 with torch.no_grad():
     for data in testloader:
         images, labels = data[0].to(device), data[1].to(device)
         outputs = net(images)
         _, predicted = torch.max(outputs.data, 1)
         c = (predicted == labels).squeeze()
-        print(f"data: {outputs.data}")
+        labels_cpu = labels.cpu()
+        predicted_cpu = predicted.cpu()
+
+        labels_numpy = labels_cpu.numpy()
+        predicted_numpy = predicted_cpu.numpy()
+
+
+        #print(f"predicted_cpu: {predicted_cpu}")
+        #precision, recall, thresholds = precision_recall_curve(labels_cpu, predicted_cpu)
+        #print(f"labels: {labels}")
+        #print(f"data: {outputs.data}")
         #print(f"predicted: {predicted}")
         #Sprint(f"c: {c}")
-        for i in range(10):
+        for i in range(4):
             label = labels[i]
             class_correct[label] += c[i].item()
             class_total[label] += 1
