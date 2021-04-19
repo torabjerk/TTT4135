@@ -60,11 +60,10 @@ class Net(nn.Module):
         self.conv1 = nn.Conv2d(3, 6, 5)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 5)
-        #self.conv3 = nn.Conv2d(16, 32, 5)
 
         self.dropout = nn.Dropout(0.25)
 
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)   #self.fc1 = nn.Linear(20 * 4 * 4, 120)
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)   
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 10)
 
@@ -73,29 +72,11 @@ class Net(nn.Module):
         self.dropout = nn.Dropout(0.25)
         x = self.pool(F.relu(self.conv2(x)))
         self.dropout = nn.Dropout(0.25)
-        #x = self.pool(F.relu(self.conv3(x)))
-        x = x.view(-1, 16 * 5 * 5)    #x = x.view(-1, 20 * 4 * 4)
+        x = x.view(-1, 16 * 5 * 5)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = self.fc3(x)
         return x
-
-"""
-Size:
-Input: (32x32x3)
-
-Conv1: (32x32x16) filter 5x5x3
-Relu1: (32x32x16)
-Pool1: (16x16x16) size 2x2
-
-Conv2: (16x16x20) filter 5x5x16
-Relu2: (16x16x20)
-Pool2: (8x8x20) size 2x2
-
-Conv3: (8x8x20) filter 5x5x20
-Relu3: (8x8x20)
-Pool2: (4x4x20) size 2x2
-"""
 
 net = Net()
 print(f" \n {net} \n")
