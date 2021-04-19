@@ -7,6 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import plot_precision_recall_curve, average_precision_score
 
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import average_precision_score
@@ -63,7 +64,7 @@ class Net(nn.Module):
 
         self.dropout = nn.Dropout(0.25)
 
-        self.fc1 = nn.Linear(16 * 5 * 5, 120)   
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)
         self.fc2 = nn.Linear(120, 84)
         self.fc3 = nn.Linear(84, 10)
 
@@ -90,7 +91,7 @@ for name, param in net.named_parameters():
 
 print("\n")
 
-for epoch in range(10):  # loop over the dataset multiple times
+for epoch in range(3):  # loop over the dataset multiple times
 
     running_loss = 0.0
     for i, data in enumerate(train_loader, 0): #trainloader changed to train_loader
@@ -149,13 +150,18 @@ print("\n")
 
 class_correct = list(0. for i in range(10))
 class_total = list(0. for i in range(10))
+
+
 with torch.no_grad():
     for data in testloader:
         images, labels = data[0].to(device), data[1].to(device)
         outputs = net(images)
         _, predicted = torch.max(outputs.data, 1)
         c = (predicted == labels).squeeze()
-        for i in range(4):
+        print(f"data: {outputs.data}")
+        #print(f"predicted: {predicted}")
+        #Sprint(f"c: {c}")
+        for i in range(10):
             label = labels[i]
             class_correct[label] += c[i].item()
             class_total[label] += 1
@@ -165,23 +171,7 @@ for i in range(10):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))
 
-#average_precision = average_precision_score(y_test, correct)
 
-"""
-# For each class
-precision = dict()
-recall = dict()
-average_precision = dict()
-for i in range(n_classes):
-    precision[i], recall[i], _ = precision_recall_curve(Y_test[:, i],
-                                                        y_score[:, i])
-    average_precision[i] = average_precision_score(Y_test[:, i], y_score[:, i])
-
-# A "micro-average": quantifying score on all classes jointly
-precision["micro"], recall["micro"], _ = precision_recall_curve(Y_test.ravel(),
-    y_score.ravel())
-average_precision["micro"] = average_precision_score(Y_test, y_score,
-                                                     average="micro")
-print('Average precision score, micro-averaged over all classes: {0:0.2f}'
-      .format(average_precision["micro"]))
-"""
+#Plot PR curve
+#disp = plot_precision_recall_curve(net, images, labels)
+#disp.ax_.set_title('hei')

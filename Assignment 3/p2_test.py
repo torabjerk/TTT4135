@@ -61,7 +61,7 @@ class Net(nn.Module):
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 5)
         self.conv3 = nn.Conv2d(16, 32, 5)
-    
+
 
         self.dropout = nn.Dropout(0.25)
 
@@ -128,6 +128,8 @@ optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 
 for name, param in net.named_parameters():
     print(name, '\t\t', param.shape)
+
+print("\n")
 
 for epoch in range(10):  # loop over the dataset multiple times
 
