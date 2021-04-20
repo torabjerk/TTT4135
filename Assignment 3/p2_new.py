@@ -8,7 +8,7 @@ import torch.nn.functional as F
 import torch.optim as optim
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import plot_precision_recall_curve, average_precision_score
-
+import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import average_precision_score
 
@@ -91,7 +91,7 @@ for name, param in net.named_parameters():
 
 print("\n")
 
-for epoch in range(3):  # loop over the dataset multiple times
+for epoch in range(10):  # loop over the dataset multiple times
 
     running_loss = 0.0
     for i, data in enumerate(train_loader, 0): #trainloader changed to train_loader
@@ -151,18 +151,39 @@ print("\n")
 class_correct = list(0. for i in range(10))
 class_total = list(0. for i in range(10))
 
+planes = []
+planes_bin = []
+planes_predicted = []
+planes_predicted_bin = []
+plane = 0
+
+labels_list = []
+predicted_list = []
+
 with torch.no_grad():
     for data in testloader:
         images, labels = data[0].to(device), data[1].to(device)
         outputs = net(images)
         _, predicted = torch.max(outputs.data, 1)
         c = (predicted == labels).squeeze()
+
         labels_cpu = labels.cpu()
         predicted_cpu = predicted.cpu()
 
         labels_numpy = labels_cpu.numpy()
         predicted_numpy = predicted_cpu.numpy()
 
+        for i in range(len(labels_numpy)):
+            labels_list.append(labels_numpy[i])
+            predicted_list.append(predicted_numpy[i])
+            if (labels_numpy[i] == plane):
+                planes_predicted.append(predicted_numpy[i])
+                planes.append(labels_numpy[i])
+                planes_bin.append(1)
+                if (labels_numpy[i] == predicted_numpy[i]):
+                    planes_predicted_bin.append(1)
+                else:
+                    planes_predicted_bin.append(0)
 
         #print(f"predicted_cpu: {predicted_cpu}")
         #precision, recall, thresholds = precision_recall_curve(labels_cpu, predicted_cpu)
@@ -179,8 +200,63 @@ with torch.no_grad():
 for i in range(10):
     print('Accuracy of %5s : %2d %%' % (
         classes[i], 100 * class_correct[i] / class_total[i]))
+"""
+print(f"planes: {planes}")
+print(f"planes_predicted: {planes_predicted}")
 
+print(f"planes_bin: {planes_bin}")
+print(f"planes_predicted_bin: {planes_predicted_bin}")
+"""
+precision, recall, thresholds = precision_recall_curve (labels_list, predicted_list, pos_label=8)
+
+print(f"precision: {precision}")
+print(f"recall: {recall}")
+
+"""
+fig,ax=plt.subplots()
+ax.step(recall,precision,color='r',alpha=0.99,where='post')
+ax.fill_between(recall, precision, alpha=0.2, color='b', step='post')
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.ylim([0.0, 1.05])
+plt.xlim([0.0, 1.0])
+
+plt.show()
+"""
+#plt.title('2-class Precision-Recall curve: AP={0:0.2f}'.format(average_precision))
+#writer.add_figure('epoch_pr',fig,epoch)
+#plt.close(fig)
 
 #Plot PR curve
 #disp = plot_precision_recall_curve(net, images, labels)
 #disp.ax_.set_title('hei')
+
+precision_list = list(0. for i in range(10))
+recall_list = list(0. for i in range(10))
+
+for i in range(10):
+    precision_list[i], recall_list[i], thresholds = precision_recall_curve (labels_list, predicted_list, pos_label=i)
+
+from itertools import cycle
+# setup plot details
+colors = cycle(['navy', 'turquoise', 'darkorange', 'cornflowerblue', 'teal'])
+
+plt.figure(figsize=(7, 8))
+lines = []
+labels = []
+
+for i in range(10):
+    l, = plt.plot(recall_list[i], precision_list[i])
+    lines.append(l)
+    labels.append('Precision-recall for class {0})'.format(classes[i]))
+
+fig = plt.gcf()
+fig.subplots_adjust(bottom=0.25)
+plt.xlim([0.0, 1.0])
+plt.ylim([0.0, 1.05])
+plt.xlabel('Recall')
+plt.ylabel('Precision')
+plt.title('Extension of Precision-Recall curve to multi-class')
+plt.legend(lines, labels, prop=dict(size=12)) # loc=(0, -.38),
+
+plt.show()
