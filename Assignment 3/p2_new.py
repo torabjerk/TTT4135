@@ -237,9 +237,11 @@ recall_list = list(0. for i in range(10))
 for i in range(10):
     precision_list[i], recall_list[i], thresholds = precision_recall_curve (labels_list, predicted_list, pos_label=i)
 
+"""
 from itertools import cycle
 # setup plot details
 colors = cycle(['navy', 'turquoise', 'darkorange', 'cornflowerblue', 'teal'])
+"""
 
 plt.figure(figsize=(7, 8))
 lines = []
