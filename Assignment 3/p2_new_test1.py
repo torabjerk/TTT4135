@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 import torch
 import torchvision
 import torchvision.transforms as transforms
@@ -52,72 +53,31 @@ classes = ('plane', 'car', 'bird', 'cat', 'deer',
            'dog', 'frog', 'horse', 'ship', 'truck')
 
 class Net(nn.Module):
-    def __init__(self, input_shape=(3,32,32)):
+    def __init__(self):
         super(Net, self).__init__()
         # First 2D convolutional layer, taking in 3 input channel (image),
         #input size 32*32*3
         # outputting 6 convolutional features, with a square kernel size of 5
-        self.conv1 = nn.Conv2d(3, 6, 5) #3 input channels (RGB)
+        self.conv1 = nn.Conv2d(3, 32, 5)
         self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.conv3 = nn.Conv2d(16, 32, 5)
-
+        self.conv2 = nn.Conv2d(32, 16, 5)
 
         self.dropout = nn.Dropout(0.25)
 
-        n_size = self._get_conv_output(input_shape)
-
-        self.fc1 = nn.Linear(32, 120)   #self.fc1 = nn.Linear(20 * 4 * 4, 120)
+        self.fc1 = nn.Linear(16 * 5 * 5, 120)
         self.fc2 = nn.Linear(120, 84)
-        self.fc3 = nn.Linear(84, 65)
-        self.fc4 = nn.Linear(65,10)
-
-    def _get_conv_output(self, shape):
-        batch_size = 1
-        input = torch.autograd.Variable(torch.rand(batch_size, *shape))
-        output_feat = self._forward_features(input)
-        n_size = output_feat.data.view(batch_size, -1).size(1)
-        return n_size
-
-    def _forward_features(self, x):
-        x = self.pool(F.relu(self.conv1(x)))
-        x = self.dropout(x)
-        x = self.pool(F.relu(self.conv2(x)))
-        x = self.dropout(x)
-        x = F.relu(self.conv3(x))
-
-        return x
+        self.fc3 = nn.Linear(84, 10)
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
-        x = self.dropout(x)
+        self.dropout = nn.Dropout(0.25)
         x = self.pool(F.relu(self.conv2(x)))
-        x = self.dropout(x)
-        x = F.relu(self.conv3(x))
-        #print("Shape:",x.shape)
-        x = x.view(-1, 32)    #x = x.view(-1, 20 * 4 * 4)
+        self.dropout = nn.Dropout(0.25)
+        x = x.view(-1, 16 * 5 * 5)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
-        x = F.relu(self.fc3(x))
-        x = self.fc4(x)
+        x = self.fc3(x)
         return x
-
-"""
-Size:
-Input: (32x32x3)
-
-Conv1: (32x32x16) filter 5x5x3
-Relu1: (32x32x16)
-Pool1: (16x16x16) size 2x2
-
-Conv2: (16x16x20) filter 5x5x16
-Relu2: (16x16x20)
-Pool2: (8x8x20) size 2x2
-
-Conv3: (8x8x20) filter 5x5x20
-Relu3: (8x8x20)
-Pool2: (4x4x20) size 2x2
-"""
 
 net = Net()
 print(f" \n {net} \n")

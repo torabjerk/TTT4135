@@ -253,12 +253,12 @@ for i in range(10):
     labels.append('Precision-recall for class {0})'.format(classes[i]))
 
 fig = plt.gcf()
-fig.subplots_adjust(bottom=0.25)
+#fig.subplots_adjust(bottom=0.25)
 plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
 plt.xlabel('Recall')
 plt.ylabel('Precision')
-plt.title('Extension of Precision-Recall curve to multi-class')
+plt.title('Precision-Recall curve for all classes')
 plt.legend(lines, labels, prop=dict(size=12)) # loc=(0, -.38),
 
 plt.show()

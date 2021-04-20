@@ -57,10 +57,10 @@ class Net(nn.Module):
         # First 2D convolutional layer, taking in 3 input channel (image),
         #input size 32*32*3
         # outputting 6 convolutional features, with a square kernel size of 5
-        self.conv1 = nn.Conv2d(3, 6, 5) #3 input channels (RGB)
+        self.conv1 = nn.Conv2d(3, 32, 5) #3 input channels (RGB)
         self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 5)
-        self.conv3 = nn.Conv2d(16, 32, 5)
+        self.conv2 = nn.Conv2d(32, 128, 5)
+        self.conv3 = nn.Conv2d(128, 32, 5)
 
 
         self.dropout = nn.Dropout(0.25)
@@ -131,7 +131,7 @@ for name, param in net.named_parameters():
 
 print("\n")
 
-for epoch in range(10):  # loop over the dataset multiple times
+for epoch in range(20):  # loop over the dataset multiple times
 
     running_loss = 0.0
     for i, data in enumerate(train_loader, 0): #trainloader changed to train_loader
