@@ -70,17 +70,7 @@ dict_2bit_p = {
 """ Markov Modelling"""
 P = np.array([[dict_2bit_p["00"]/p_zerohs, dict_2bit_p["01"]/p_zerohs], [dict_2bit_p["10"]/p_ones,dict_2bit_p["11"]/p_ones]])
 
-#q = np.empty(2, dtype=object)
-
-"""
-p1 = symbols('p1')
-f1 = p1*P[0][0]+(1-p1)*P[0][1]-p1
-q_p1 = solve(f1, p1)
-q_p2 = 1 - q_p1
-"""
-#a = P[0][1]+P[0][0]
-#print(a)
-print(P)
+print(f"Transition matrix: {P}")
 
 #one_step_transition = np.array([[7/8, 1/8], [1/8, 7/8]])
 p1 = symbols('p1')
@@ -89,9 +79,9 @@ q_p1 = solve(f_p1,p1)
 q_p1 = q_p1[0]
 q_p2 = 1 - q_p1
 q = [q_p1,2, q_p2,2]
-print(q)
+print(f"Steady state vector: {q}")
 
-
+"""
 def steady_state_prop(p):
     dim = p.shape[0]
     q = (p-np.eye(dim))
@@ -106,3 +96,4 @@ def steady_state_prop(p):
 steady_state_matrix = steady_state_prop(P.transpose())
 
 print (steady_state_matrix)
+"""
