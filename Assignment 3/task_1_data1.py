@@ -62,10 +62,10 @@ print(f"Number of 00s: {zerozero}")
 print("\n")
 
 dict_2bit_p = {
-"11":float(oneone)/float(data_len),
-"10": float(onezero)/float(data_len),
-"01": float(zeroone)/float(data_len),
-"00": float(zerozero)/float(data_len)
+"11":float(oneone)/float(data_len/2),
+"10": float(onezero)/float(data_len/2),
+"01": float(zeroone)/float(data_len/2),
+"00": float(zerozero)/float(data_len/2)
 }
 
 H_2bit = 0
