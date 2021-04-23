@@ -77,7 +77,7 @@ class Net(nn.Module):
         x = self.pool(F.relu(self.conv2(x)))
         x = self.dropout(x)
         x = F.relu(self.conv3(x))
-        #print("Shape:",x.shape)
+        print("Shape:",x.shape)
         x = x.view(-1, 32)    #x = x.view(-1, 20 * 4 * 4)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
