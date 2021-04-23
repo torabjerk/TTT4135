@@ -81,10 +81,6 @@ q_p2 = 1 - q_p1
 q = [q_p1,2, q_p2,2]
 print(f"Steady state vector: {q}")
 
-q_p1 = float(q_p1[0])
-print(f"q_p1: {q_p1}")
-H_markov = -q_p1*np.log2(q_p1) - (q_p2)*np.log2(q_p2)
-
 """
 def steady_state_prop(p):
     dim = p.shape[0]
