@@ -2,7 +2,7 @@
 
 import numpy as np
 from sympy import symbols, limit
-
+from sympy.solvers import solve
 data = np.loadtxt("data3.txt")
 #data2 = np.loadtxt("data2.txt")
 #data3 = np.loadtxt("data3.txt")
@@ -20,7 +20,7 @@ for i in range(data_len):
         zerohs = zerohs + 1
 
 print("\n")
-print("Data 2")
+print("Data 3")
 print("Ones ", ones)
 print("Zerohs ", zerohs)
 print("Size of data ", data_len)
@@ -189,7 +189,7 @@ print(f"\nThe entropy of four bits: {H_4bit}")
 # 1f entropy rate
 """ It is assumed that the random varables are iid."""
 
-symbol_length = 127 #started on 15
+symbol_length = 15 #started on 15
 n = symbols('n')
 prob1 = [p_ones, p_zerohs]
 prob2 = [dict_2bit_p[key] for key in dict_2bit_p]
@@ -217,3 +217,22 @@ print(f"\nThe entropy rate for 4 bit is: {entropy_rate4}")
 print(f"A symbol length equal to 1 makes the entropy rate equal to the entropy.\
  Increasing the symbol lenght gives an entropy rate going towards zero. \
 We have chosen a symbol length of {symbol_length}. ")
+
+""" Markov Modelling"""
+P = np.array([[dict_2bit_p["00"]/p_zerohs, dict_2bit_p["01"]/p_zerohs], [dict_2bit_p["10"]/p_ones,dict_2bit_p["11"]/p_ones]])
+
+print(f"Transition matrix: {P}")
+
+#one_step_transition = np.array([[7/8, 1/8], [1/8, 7/8]])
+p1 = symbols('p1')
+f_p1 = p1*P[0][0]+(1-p1)*P[0][1]-p1
+q_p1 = solve(f_p1,p1)
+q_p1 = q_p1[0]
+q_p2 = 1 - q_p1
+q = [q_p1,2, q_p2,2]
+print(f"Steady state vector: {q}\n")
+
+q_p1 = float(q_p1[0])
+print(f"q_p1: {q_p1}")
+H_markov = -q_p1*np.log2(q_p1) - (q_p2)*np.log2(q_p2)
+print(f"The entropy of the markov chain: {H_markov}\n")
