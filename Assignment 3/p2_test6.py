@@ -11,6 +11,8 @@ from sklearn.metrics import plot_precision_recall_curve, average_precision_score
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_recall_curve
 from sklearn.metrics import average_precision_score
+from sklearn.metrics import auc
+
 
 transform = transforms.Compose([transforms.ToTensor(),
                                 transforms.Normalize((0.5, 0.5, 0.5),
@@ -276,10 +278,11 @@ plt.show()
 
 precision_list = list(0. for i in range(10))
 recall_list = list(0. for i in range(10))
+auc_list = list(0. for i in range(10))
 
 for i in range(10):
     precision_list[i], recall_list[i], thresholds = precision_recall_curve (labels_list, predicted_list, pos_label=i)
-
+    auc_list = auc(recall_list[i], precision_list[i])
 """
 from itertools import cycle
 # setup plot details
@@ -294,6 +297,9 @@ for i in range(10):
     l, = plt.plot(recall_list[i], precision_list[i])
     lines.append(l)
     labels.append('Precision-recall for class {0})'.format(classes[i]))
+    labels.append('Precision-recall for class {0} (area = {1:0.2f})'
+                  ''.format(classes[i], average_precision[i]))
+
 
 fig = plt.gcf()
 #fig.subplots_adjust(bottom=0.25)
