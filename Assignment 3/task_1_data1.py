@@ -3,10 +3,10 @@
 import numpy as np
 from sympy import symbols, limit
 from sympy.solvers import solve
-data = np.loadtxt("data3.txt")
+data = np.loadtxt("data1.txt")
 #data2 = np.loadtxt("data2.txt")
 #data3 = np.loadtxt("data3.txt")
-content = open('data3.txt','r').read().replace('\n','')
+content = open('data1.txt','r').read().replace('\n','')
 
 ## Task 1d
 data_len = np.size(data)
@@ -20,7 +20,7 @@ for i in range(data_len):
         zerohs = zerohs + 1
 
 print("\n")
-print("Data 3")
+print("Data 1")
 print("Ones ", ones)
 print("Zerohs ", zerohs)
 print("Size of data ", data_len)
@@ -227,12 +227,11 @@ print(f"Transition matrix: {P}")
 p1 = symbols('p1')
 f_p1 = p1*P[0][0]+(1-p1)*P[0][1]-p1
 q_p1 = solve(f_p1,p1)
-q_p1 = q_p1[0]
+q_p1 = float(q_p1[0])
 q_p2 = 1 - q_p1
-q = [q_p1,2, q_p2,2]
+q = [round(q_p1,5), round(q_p2,5)]
 print(f"Steady state vector: {q}\n")
 
-q_p1 = float(q_p1[0])
-print(f"q_p1: {q_p1}")
+#print(f"q_p1: {q_p1}")
 H_markov = -q_p1*np.log2(q_p1) - (q_p2)*np.log2(q_p2)
-print(f"The entropy of the markov chain: {H_markov}\n")
+print(f"The entropy of the markov chain: {round(H_markov,8)}\n")
